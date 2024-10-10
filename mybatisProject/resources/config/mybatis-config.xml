@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+	PUBLIC "-//mybais.org//DTD Config 3.0//EN"
+	"https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<settings>
+		<!-- 혹시라도 null로 데이터 전달시 DB에서의 null로 인식해라 -->
+		<setting name="jdbcTypeForNull" value="NULL" />
+	</settings>
+
+	<!-- * typeAlias : 풀클래스명 대신에 별칭으로 지칭할 수 있도록 별칭을 등록하는 태그 -->
+	<typeAliases>
+		
+	</typeAliases>
+
+	<!--  
+		* environment : 연동할 db 정보를 등록하는 태그
+		default : 연결설정을 여러개 생성해두고 아이디로 구분하는데
+							이때 기본적으로 연결시킬 id 작성	
+	-->
+	<environments default="development">
+		<environment id="development">
+			<!-- 
+				* transactionManager
+					1) JDBC		 : 트랜잭션 관리를 개발자가 직접 (수동 commit)
+					2) MANAGED : 트랜잭션에 대해서 어떠한 영향도 행사하지 않겠다 (자동 commit)
+			-->		
+			<transactionManager type="JDBC"/>
+			<!-- 
+				* dataSource의 타입으로 POOLED, UNPOOLED 선택 (ConnectionPool 사용여부)
+					>> ConnectionPool : Connection 객체를 담아둘 수 있는 영역
+															한번 생성된 Connection객체를 담아두면 재사용해서 사용 가능
+					1) POOLED		: 사용하겠다
+					2) UNPOOLED	: 사용안하겠다
+			-->			
+			<dataSource type="POOLED">
+				<property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+				<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+				<property name="username" value="SERVER"/>
+				<property name="password" value="SERVER"/>
+			</dataSource>
+		</environment>
+	</environments>
+
+	
+	<!-- * mapper : 실행할 sql문들이 기록되어있는 mapper파일들 등록하는 태그 -->
+	<mappers>
+		<mapper resource="mappers/notice-mapper.xml" />
+		<mapper resource="mappers/member-mapper.xml" />
+	</mappers>
+
+
+
+
+</configuration>
