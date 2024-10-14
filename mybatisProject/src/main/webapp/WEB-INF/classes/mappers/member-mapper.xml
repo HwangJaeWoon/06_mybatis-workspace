@@ -4,5 +4,68 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="memberMapper">
 
+	<resultMap id="memberResultMap" type="MemberDto">
+		<result column="user_no" property="userNo" />
+		<result column="user_id" property="userId" />
+		<result column="user_name" property="userName" />
+		<result column="phone" property="phone" />
+		<result column="email" property="email" />
+		<result column="address" property="address" />
+		<result column="interest" property="interest" typeHandler="strArrHandler" />
+		<!-- 담고자하는 interest 필드가 String[]이기 때문에 형변환 과정이 필요함 -->
+	</resultMap>
 
+	<select id="selectMember" resultMap="memberResultMap">
+		select
+					 user_no
+				 , user_id
+				 , user_name
+				 , phone
+				 , email
+				 , address
+				 , interest
+		  from member
+		 where status in ('U', 'A')
+		   and user_no = #{ userNo }
+	</select>
+
+	<update id="updateMember">
+		update
+					 member
+			 set
+					 user_name = #{userName}
+				 , phone = #{phone}
+				 , email = #{email}
+				 , address = #{address}
+				 , interest = #{interest, typeHandler=strArrHandler}
+		 where user_no = #{userNo}
+				 
+	</update>
+	
+	<select id="searchMemberList" resultMap="memberResultMap">
+		<choose>
+			<when>
+			and user_no like '%' || #{keyword}
+			</when>
+			<when>
+			and user_no like '%' || #{keyword} || '%'
+			</when>
+			<otherwise>
+			and user_id like '%${keyword}%'
+			</otherwise>
+		</choose>
+	</select>
+	
+	<update id="deleteMember">
+		update
+					 member
+			 set status = 'R'
+		 <where>
+		 	<foreach item="item" collection="array"
+		 		open="user_no in (" separator="," close=")">
+		 			#{no}
+		 	</foreach>		 
+		 </where>
+	</update>
+	
 </mapper>

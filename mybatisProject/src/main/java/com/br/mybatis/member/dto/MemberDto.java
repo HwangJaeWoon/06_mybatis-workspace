@@ -7,8 +7,8 @@ public class MemberDto {
 	
 	private int userNo;
 	private String userId;
-	private String usePwd;
-	private String useName;
+	private String userPwd;
+	private String userName;
 	private String phone;
 	private String email;
 	private String address;
@@ -19,13 +19,13 @@ public class MemberDto {
 
 	public MemberDto() {}
 
-	public MemberDto(int userNo, String userId, String usePwd, String useName, String phone, String email,
+	public MemberDto(int userNo, String userId, String userPwd, String userName, String phone, String email,
 			String address, String[] interest, Date enrollDate, Date modifyDate, String status) {
 		super();
 		this.userNo = userNo;
 		this.userId = userId;
-		this.usePwd = usePwd;
-		this.useName = useName;
+		this.userPwd = userPwd;
+		this.userName = userName;
 		this.phone = phone;
 		this.email = email;
 		this.address = address;
@@ -51,20 +51,20 @@ public class MemberDto {
 		this.userId = userId;
 	}
 
-	public String getUsePwd() {
-		return usePwd;
+	public String getUserPwd() {
+		return userPwd;
 	}
 
-	public void setUsePwd(String usePwd) {
-		this.usePwd = usePwd;
+	public void setUserPwd(String userPwd) {
+		this.userPwd = userPwd;
 	}
 
-	public String getUseName() {
-		return useName;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setUseName(String useName) {
-		this.useName = useName;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getPhone() {
@@ -125,7 +125,7 @@ public class MemberDto {
 
 	@Override
 	public String toString() {
-		return "MemberDto [userNo=" + userNo + ", userId=" + userId + ", usePwd=" + usePwd + ", useName=" + useName
+		return "MemberDto [userNo=" + userNo + ", userId=" + userId + ", userPwd=" + userPwd + ", userName=" + userName
 				+ ", phone=" + phone + ", email=" + email + ", address=" + address + ", interest="
 				+ Arrays.toString(interest) + ", enrollDate=" + enrollDate + ", modifyDate=" + modifyDate + ", status="
 				+ status + "]";

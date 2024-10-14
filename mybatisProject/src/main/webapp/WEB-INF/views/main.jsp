@@ -68,17 +68,30 @@
 	--%>
 
 	<h3>1. insert연습 (공지사항 등록)</h3>
+	<a href="${ contextPath }/regist.no">공지사항 등록페이지로 이동</a>
 
 	<h3>2. select연습 - 한행 (공지사항 상세조회)</h3>
+	<form action="${ contextPath }/detail.no">
+		검색할 글번호 : <input type="text" name="noticeNo">
+		<button type="submit">검색</button>
+	
+	</form>
+
 
 	<h3>3. select연습 - 여러행 (공지사항 전체목록조회)</h3>
+	<a href="${ contextPath }/list.no">공지사항 전체 목록 페이지로 이동</a>
 
 	<h4>4. select연습 - 여러행 + 페이징 처리 - RowBounds 적용</h4>
+	<a href="${ contextPath }/list.no?page=1">공지사항 목록 페이지(페이징처리)로 이동</a>
 	
 	<h5>5. select연습 + update연습 (회원정보 상세조회 + 회원정보 변경) - TypeHandler 적용</h5>
+	<form action="${ contextPath }/detail.me">
+		검색할 회원번호 : <input type="text" name="userNo">
+		<button type="submit">검색</button>
+	</form>
 	
 	<h6>6. 동적쿼리 연습 (회원 검색)</h6>
-	
+	<a href="${ contextPath }/search.me">회원 검색 목록 페이지로 이동</a>
 	
 </body>
 </html>

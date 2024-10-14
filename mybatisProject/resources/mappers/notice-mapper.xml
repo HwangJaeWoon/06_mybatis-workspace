@@ -4,5 +4,113 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="noticeMapper">
 
+	<insert id="insertNotice" parameterType="com.br.mybatis.notice.dto.NoticeDto">
+		insert
+			into notice
+			(
+				notice_no
+			, notice_title
+			, notice_content
+			, notice_writer
+			)
+			values
+			(
+				seq_nno.nextval
+			, #{noticeTitle} 
+			, #{noticeContent}	
+			, #{noticeWriter}	
+			)
+	</insert>
+
+	<update id="updateNotice">
+		update
+					 notice
+			 set 
+			 		 notice_title = #{noticeTitle}
+			 	 , notice_content = #{noticeContent}
+		 where
+		 			 notice_no = #{noticeNo}
+	</update>
+	
+	<delete id="deleteNotice" parameterType="_int">
+		delete
+			from notice
+		 where notice_no = #{noticeNo}
+	</delete>
+	
+	<!--  
+		방법1. resultType으로 조회결과를 담아서 반환하고자 하는 객체 타입을 바로 제시하는 경우
+				   단, 조회되는 컬럼명이 담고자하는 객체의 필드명과 일치해야됨
+				   별칭을 활용해서 필드명으로 조회되도록
+	-->
+	<!--  
+	<select id="selectNotice" resultType="NoticeDto">
+		select
+					 notice_no			as "noticeNo"
+				 , notice_title		as "noticeTitle"
+				 , notice_content	as "noticeContent"
+				 , user_id				as "noticeWriter"
+				 , to_char(regist_date, 'YY/MM/DD HH:MI') as "registDate"
+			from notice
+			join member on (notice_writer = user_no)
+		 where notice.status = 'Y'
+		 	 and notice_no = #{ noticeNo }
+	</select>
+	-->
+	
+	<!--  
+		방법2. resultMap으로 매핑시키는 내용을 따로 정의해두는 경우
+	-->
+	
+	<!--  
+		* resultMap 마이바티스의 핵심 기능 중 하나
+			ResultSet으로부터 조회된 컬럼값을 내가 지정한 dto객체의 필드에 
+			매핑 시켜주는 코드가 내부적으로 수행됨 
+			
+			<resultMap id="식별자" type="조회결과를담아서반환하고자하는dto객체의타입">
+				<result column="컬럼명" property="필드명"/>
+				<result column="컬럼명" property="필드명"/>
+				<result column="컬럼명" property="필드명"/>
+			</resultMap>	  	
+	-->
+	<resultMap id="noticeResultMap" type="NoticeDto">
+		<result column="notice_no" property="noticeNo"/>
+		<result column="notice_title" property="noticeTitle"/>
+		<result column="notice_content" property="noticeContent"/>
+		<result column="user_id" property="noticeWriter"/>
+		<result column="regist_date" property="registDate"/>
+	</resultMap>
+	<select id="selectNotice" resultMap="noticeResultMap">
+		select
+					 notice_no
+				 , notice_title
+				 , notice_content
+				 , user_id
+				 , to_char(regist_date, 'YY/MM/DD HH:MI') as regist_date
+			from notice
+			join member on (notice_writer = user_no)
+		 where notice.status = 'Y'
+		 	 and notice_no = #{ noticeNo }
+	</select>
+	
+	<select id="selectList" resultMap="noticeResultMap">
+		select
+					 notice_no
+				 , notice_title
+				 , user_id
+				 , to_char(regist_date, 'YY/MM/DD') as regist_date
+			from notice
+		  join member on (user_no = notice_writer)
+		 where notice.status = 'Y'
+		 order
+		 		by notice_no desc
+	</select>
+	
+	<select id="selectListCount" resultType="_int">
+		select
+					 count(*)
+			from notice
+		 where status = 'Y'
+	</select>
 
 </mapper>

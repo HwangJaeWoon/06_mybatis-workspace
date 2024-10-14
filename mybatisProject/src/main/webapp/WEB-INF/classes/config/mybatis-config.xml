@@ -11,7 +11,9 @@
 
 	<!-- * typeAlias : 풀클래스명 대신에 별칭으로 지칭할 수 있도록 별칭을 등록하는 태그 -->
 	<typeAliases>
-		
+		<typeAlias type="com.br.mybatis.notice.dto.NoticeDto" alias="NoticeDto" />
+		<typeAlias type="com.br.mybatis.member.dto.MemberDto" alias="MemberDto" />
+		<typeAlias type="com.br.mybatis.common.handler.StringArrTypeHandler" alias="StrArrHandler" />
 	</typeAliases>
 
 	<!--  

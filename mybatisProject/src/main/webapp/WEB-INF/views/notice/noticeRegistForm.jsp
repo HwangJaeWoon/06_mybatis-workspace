@@ -10,9 +10,15 @@
 </head>
 <body>
 
-	여기는 index.jps 야
+	<h2>공지사항 등록</h2>
 
-	<jsp:forward page="WEB-INF/views/main.jsp"/>
-
+	<form action="${ contextPath }/insert.no" method="post">
+		제목 : <input type="text" name="title"> <br>
+		내용 : <textarea name="content"></textarea> <br><br>
+		
+		<button type="submit">등록하기</button>
+	</form>
+	
+	
 </body>
 </html>

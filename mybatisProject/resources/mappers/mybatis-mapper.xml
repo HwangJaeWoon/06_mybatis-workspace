@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="해당 매퍼 파일을 지칭할수 있는 별칭(고유한값)">
+
+	<!-- 
+		<select|insert|update|delete 
+							id=""
+							parameterType=""
+							resultType=""
+							resultMap="">
+							
+			실행할 sql문 작성
+			sql문 실행시 해당 sql문으로 전달되는 parameter로 부터 값을 뽑아서
+			채우고자 한다면 #{} 또는 ${} 사용
+			
+		</select|insert|update|delete>
+		
+		* id : 해당 sql문의 식별자 (dao측에서 실행할 sql문을 탐색할때 사용됨)
+					 ex) mapper파일의namespace.sql문의id 제시해서 sql문 실행
+					 
+		* parameterTyle : 해당 sql문으로 전달되는 파라미터의 타입 (생략가능)
+					 ex) 
+					 		1) parameterType="com.br.mybatis.notice.dto.NoticeDto" - 풀클래스명을 기본적으로 써야됨
+							2) parameterType="NoticeDto" 	- alias 등록했을 경우
+							3) parameterType="_int"				- mybatis 내장 별칭
+							4) parameterType="string"			- mybatis 내장 별칭
+							5) parameterType="map"				- mybatis 내장 별칭		
+									....
+		* sql문에서 전달된 parameter로 값을 설정 방법
+			1) #{} : ? 와 같은 역할 수행하면 pstm 방식으로 값을 처리함
+						   #{ 전달된 dto객체의 필드 | 전달된 Map의 key | 전달된 변수명 } 을 작성
+						   해당 값이 문자열('')로 채워짐
+						   
+						   ex) 전달된 dto객체의 name필드에 "홍길동"이 있었을 경우
+						   		 where user_name = #{ name } // pstmt.setString(1, name);
+						   		   and user_age = #{ age }	 // pstmt.setInt(2, age);
+						   		  => where user_name = '홍길동'
+						   		       and user_age = 10
+			
+			2) ${} : 따옴표 없이 그대로 채워짐 (문자열 데이터로 인식되지 않음)							
+							 sql문의 메타데이터(테이블명, 컬럼명, sql자체 등)를 처리할 때 사용함	
+									
+							 ex) 전달된 변수 String table에 "member" 가 있었을 경우
+							 		 select * from ${ table }
+							 		  => select * from member
+							 		  
+							 		  
+			* resultType : select문에 작성하는 속성으로 반환값의 타입을 명시
+										 insert|update|delete는 어짜피 int 반환이기 때문에 명시할 필요 없음
+										 
+										 ex) 
+										 		- 조회된 값이 숫자 한개일경우 자바의 int형으로 바로 반환하고 싶을때
+										 			resultType="_int"				 		  
+										 		
+										 		- 조회된 값이 문자열 한개일경우 자바의 String형으로 바로 반환하고 싶을때
+										 			resultType="string"
+							 		  
+							 		  		- 조회된 한 행을 특정 dto 객체의 각필드에 매핑해서 반환하고자 할 때
+							 		  			단, 조회되는 컬럼들의 컬럼명이 담고자하는 dto객체의 필드명과 일치
+							 		  			resultType="dto객체의타입"
+							 		  
+			* resultMap : db의 컬럼명과 담고자하는 dto객체의 필드명을 따로 작성해서
+									  매핑되도록 하는 태그				 		  
+							 		  
+							 		  
+							 		  
+							 		  
+							 		  
+									
+	-->
+
+
+</mapper>
